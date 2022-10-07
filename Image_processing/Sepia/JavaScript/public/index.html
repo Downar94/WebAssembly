@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sepia</title>
+  </head>
+  <body>
+    <img id="image" style="display:none;" src="athens.jpg" width="550" height="550" align="middle">
+    <canvas id="originCanva" width="550" height="550"></canvas>
+	<canvas id="resultCanva" width="550" height="550"></canvas>
+    <script src="Sepia.js"></script>
+    <script>
+	const WIDTH = 550
+    const HEIGHT = 550
+	
+	originContext = document.getElementById('originCanva').getContext('2d');
+    image = document.getElementById('image');
+    originContext.drawImage(image,0,0,image.width,image.height);
+    originContextData = originContext.getImageData(0, 0, WIDTH, HEIGHT);
+	
+	resultContext = document.getElementById('resultCanva').getContext('2d');
+	resultContextData = resultContext.createImageData(WIDTH, HEIGHT);
+	
+    let imagePixels = originContextData.data;
+
+    let resultPixels = sepia(imagePixels, imagePixels.length);
+    for (let i = 0; i < resultContextData.data.length; i++) {
+    resultContextData.data[i] =resultPixels[i];
+    }
+    resultContext.putImageData(resultContextData, 0, 0);
+ </script>
+</body>
+
+</html>

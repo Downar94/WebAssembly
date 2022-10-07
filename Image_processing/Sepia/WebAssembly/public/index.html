@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sepia</title>
+  </head>
+  <body>
+    <img id="image" style="display:none;" src="athens.jpg" width="550" height="550" align="middle">
+    <canvas id="originCanva" width="550" height="550"></canvas>
+	<canvas id="resultCanva" width="550" height="550"></canvas>
+    <script src="sepia.js"></script>
+    <script>
+	const WIDTH = 550
+    const HEIGHT = 550
+	let resultPixels = [];
+	
+	originContext = document.getElementById('originCanva').getContext('2d');
+    image = document.getElementById('image');
+    originContext.drawImage(image,0,0,image.width,image.height);
+    originContextData = originContext.getImageData(0, 0, WIDTH, HEIGHT);
+	
+	resultContext = document.getElementById('resultCanva').getContext('2d');
+	resultContextData = resultContext.createImageData(WIDTH, HEIGHT);
+
+	
+    let imagePixels = originContextData.data;
+	const imagePixelsTable = new Float32Array(imagePixels.length*4);
+
+    Module['onRuntimeInitialized'] = () => {
+	  
+    for (let i = 0; i < (imagePixels.length)*4; i++) {
+        imagePixelsTable[i] = imagePixels[i]
+    }
+	
+    imageTableBuffer = _malloc(imagePixelsTable.length * imagePixelsTable.BYTES_PER_ELEMENT)
+    HEAPF32.set(imagePixelsTable, imageTableBuffer >> 2)
+    sepia = ccall("sepia", null, ["number", "number"], [imageTableBuffer, imagePixels.length])
+	
+	for (let i = 0; i < imagePixels.length*4; i++) {
+	resultPixels.push(HEAPF32[sepia/Float32Array.BYTES_PER_ELEMENT+i])
+    }
+
+    for (let i = 0; i < resultContextData.data.length; i++) {
+    resultContextData.data[i] =resultPixels[i];
+    }
+	
+    resultContext.putImageData(resultContextData, 0, 0);
+
+    _free(imageTableBuffer)
+}
+
+
+    </script>
+  </body>
+</html>

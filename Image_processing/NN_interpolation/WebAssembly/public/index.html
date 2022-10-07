@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>nearest neighbour interpolation</title>
+  </head>
+  <body>
+    <img id="image" style="display:none;" src="papua.jpg" width="550" height="550" align="middle">
+    <canvas id="originCanva" width="275" height="275"></canvas>
+	<canvas id="resultCanva" width="550" height="550"></canvas>
+    <script src="NNinterpolation.js"></script>
+    <script>
+	let scale = 2;
+	let resultPixels = [];
+	
+	originCanva = document.getElementById('originCanva');
+	originContext = originCanva.getContext('2d');
+    image = document.getElementById('image');
+    originContext.drawImage(image,0,0,image.width,image.height);
+    originContextData = originContext.getImageData(0, 0, originCanva.width, originCanva.height);
+	
+	resultCanva = document.getElementById('resultCanva');
+	resultContext = resultCanva.getContext('2d');
+	resultContextData = resultContext.createImageData(resultCanva.width, resultCanva.height);
+
+	
+    let imagePixels = originContextData.data;
+	const imagePixelsTable = new Float32Array(imagePixels.length*4);
+
+    Module['onRuntimeInitialized'] = () => {
+	  
+    for (let i = 0; i < (imagePixels.length)*4; i++) {
+        imagePixelsTable[i] = imagePixels[i]
+    }
+	
+    imageTableBuffer = _malloc(imagePixelsTable.length * imagePixelsTable.BYTES_PER_ELEMENT)
+    HEAPF32.set(imagePixelsTable, imageTableBuffer >> 2)
+    interpolation = ccall("interpolation", null, ["number", "number", "number"], [imageTableBuffer, imagePixels.length, scale])
+	
+	for (let i = 0; i < imagePixels.length*4; i++) {
+	resultPixels.push(HEAPF32[interpolation/Float32Array.BYTES_PER_ELEMENT+i])
+    }
+
+    for (let i = 0; i < resultContextData.data.length; i++) {
+    resultContextData.data[i] =resultPixels[i];
+    }
+	
+    resultContext.putImageData(resultContextData, 0, 0);
+
+    _free(imageTableBuffer)
+}
+
+
+    </script>
+  </body>
+</html>
