@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>panorama animation</title>
+  </head>
+  <body>
+    <img id="image" style="display:none;" src="panoramas.jpg" width="4232" height="1024" align="middle">
+	<canvas id="resultCanva" style = "position:absolute; top: 50%; margin-top: -256px; left: 50%; margin-left: -256px;" width="512" height="512"></canvas>
+    <canvas id="originCanva" style="display:none;" width="4232" height="1024" align="middle"></canvas>
+    <script src="panorama.js"></script>
+    <script>
+    image = document.getElementById('image');
+    originCanva = document.getElementById('originCanva');
+    originContext  = originCanva.getContext("2d");
+    originContext.drawImage(image,0,0,image.width,image.height);
+	originContextData = originContext.getImageData(0,0, 4232, 1024);
+	
+	resultCanva = document.getElementById('resultCanva');
+    resultContext  = resultCanva.getContext("2d");
+    resultContextData = resultContext.createImageData(512, 512);
+	
+    let imagePixels = originContextData.data;
+	const imagePixelsTable = new Float32Array(imagePixels.length*4);
+	
+	let pixStart = 0;
+
+    for (let i=0; i<(imagePixels.length)*4; i++) {
+       imagePixelsTable[i] = imagePixels[i]		
+    }
+
+    Module['onRuntimeInitialized'] = () => {
+
+	imageTableBuffer = _malloc(imagePixelsTable.length * imagePixelsTable.BYTES_PER_ELEMENT)
+	
+    const animation = () => {
+	Module.HEAPF32.set(imagePixelsTable, imageTableBuffer >> 2)
+    panoramaFrame = ccall("panoramaFrame", null, ["number","number"], [pixStart,imageTableBuffer])
+    let resultPixels = []
+
+    for (let i=0; i<512*512*4; i++) {
+    resultPixels.push(Module.HEAPF32[panoramaFrame/Float32Array.BYTES_PER_ELEMENT+i])
+      }
+
+    for (let i = 0; i < resultContextData.data.length; i ++) {
+    resultContextData.data[i] =resultPixels[i];
+      }
+    resultContext.putImageData(resultContextData, 0, 0);
+   
+    _free(imageTableBuffer)
+
+
+    pixStart +=4;
+    if (pixStart <= 14880) {
+        window.requestAnimationFrame(animation);
+      }
+     }
+    animation();
+    }
+    </script>
+  </body>
+</html>
+
