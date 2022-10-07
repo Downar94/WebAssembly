@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mandelbrot multihreading</title>
+  </head>
+  <body>
+    <canvas id="mCanva" width="300" height="300"></canvas>
+    <script src="multi_mandelbrot.js"></script>
+    <script>
+	const mITERATIONS = 100;
+    const mCanva = document.getElementById('mCanva');
+    const mCanvaContext = mCanva.getContext("2d");
+    mContextImageData = mCanvaContext.getImageData(0,0, mCanva.width, mCanva.height);
+
+    Module['onRuntimeInitialized'] = () => {
+    const fractalMemorySpace = cwrap('fractalImage', 'number', []);
+
+    const fractalTable = new Uint8ClampedArray(wasmMemory.buffer, fractalMemorySpace(), mCanva.width * mCanva.height * 4);
+
+    _mandelbrot(mCanva.height, mCanva.width, mITERATIONS, 0, 300, 0, -3);
+
+    mContextImageData.data.set(fractalTable);
+    mCanvaContext.putImageData(mContextImageData, 0, 0);
+  }
+  </script>
+  
+  
+
