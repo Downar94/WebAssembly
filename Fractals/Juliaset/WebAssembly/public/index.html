@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Julia set</title>
+
+    </head>
+    <body>
+        <canvas id="jCanva" width="600" height="600"></canvas>
+
+        <script src="juliaset.js"></script>
+
+
+        <script>
+    const WIDTH = 600
+    const HEIGHT = 600
+    const MAXITERATIONS = 100;
+    Module['onRuntimeInitialized'] = () => {
+    context = document.getElementById('jCanva').getContext('2d');
+    contextData = context.getImageData(0, 0, WIDTH, HEIGHT);
+
+    juliaset = cwrap('juliaset', 'number', ['number', 'number', 'number']);
+    juliasetImageData = new Uint8ClampedArray(wasmMemory.buffer, juliaset(), WIDTH * HEIGHT * 4);
+    juliaset(HEIGHT, WIDTH, MAXITERATIONS);
+    contextData.data.set(juliasetImageData);
+    context.putImageData(contextData, 0, 0);
+    };
+        </script>
+    </body>
+</html>

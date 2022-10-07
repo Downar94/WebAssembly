@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Newton fractal</title>
+
+    </head>
+    <body>
+        <canvas id="newtonCanva" width="550" height="550"></canvas>
+        <script src="newton.js"></script>
+        <script>
+    const MAXITERATIONS = 100;
+    Module['onRuntimeInitialized'] = () => {
+    context = document.getElementById('newtonCanva').getContext('2d');
+    contextData = context.getImageData(0, 0, newtonCanva.width, newtonCanva.height);
+
+    newton = cwrap('newton', 'number', ['number', 'number', 'number']);
+    mandelbrotImageData = new Uint8ClampedArray(wasmMemory.buffer, newton(), newtonCanva.width * newtonCanva.height * 4);
+    newton(newtonCanva.height, newtonCanva.width, MAXITERATIONS);
+    contextData.data.set(mandelbrotImageData);
+    context.putImageData(contextData, 0, 0);
+    };
+        </script>
+    </body>
+</html>
+
