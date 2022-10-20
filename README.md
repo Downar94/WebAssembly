@@ -1,20 +1,31 @@
 # WebAssembly
+- ### [How to run](#htr)
 - ### [Description](#desc)
 - ### [Results](#result)
+<a name="htr"></a>
+## How to run
+### Sample method for windows os:
+#### 1. Install node.js latest version
+#### 2. In command prompt go to the program location (server.js location folder) and use commands:
+`npm install --save express`
+
+`node server.js`
+
+#### 3. Run application on port 8880
 <a name="desc"></a>
 ## Description
 Algorithms written in JavaScript and WebAssembly (C code compiled into WebAssembly with the set of tools called Emscripten SDK (emsdk)). Algorithms were written to compare both languages in term of efficiency including code execution time and animation performance (frame rate value, CPU and memory usage). Some of the programs were also improved with multithreading. The algorithms implemented consist of the:
-- #### Algorithm for Canadian Traveller Problem (CTP):
+- ### Algorithm for Canadian Traveller Problem (CTP):
 1. Hindsight Optimization (HOP)
-- #### Algorithms for generating fractal images:
+- ### Algorithms for generating fractal images:
 1. Newton fractal,
 2. Mandelbrot fractal,
 3. Julia set
-- #### Image processing algorithms:
+- ### Image processing algorithms:
 1. Otsu's method,
 2. Sepia,
 3. Nearest-neighbour interpolation
-- #### Animation
+- ### Animation
 <a name="result"></a>
 ## Sample Results
 
