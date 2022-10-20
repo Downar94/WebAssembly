@@ -25,6 +25,7 @@ Algorithms written in JavaScript and WebAssembly (C code compiled into WebAssemb
 ![Sepia](https://user-images.githubusercontent.com/44844566/197056672-700bdee5-3b4d-4e25-a31c-b91ed06c4f1c.PNG)
 ![wieksze](https://user-images.githubusercontent.com/44844566/197056675-847538d6-ef6f-47a2-b5c0-d7ba451c6ffa.PNG)
 #### Benchmark results:
+JavaScript in relation to the WebAssembly:
 ![Benchmark](https://user-images.githubusercontent.com/44844566/197056692-0205dccb-5be0-4d9b-981b-048a3ef4ace9.PNG)
 ### Animation:
 #### Benchmark results:
