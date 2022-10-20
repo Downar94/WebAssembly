@@ -1,4 +1,7 @@
 # WebAssembly
+- ### [Description](#desc)
+- ### [Results](#result)
+<a name="desc"></a>
 ## Description
 Algorithms written in JavaScript and WebAssembly (C code compiled into WebAssembly with the set of tools called Emscripten SDK (emsdk)). Algorithms were written to compare both languages in term of efficiency including code execution time and animation performance (frame rate value, CPU and memory usage). Some of the programs were also improved with multithreading. The algorithms implemented consist of the:
 - #### Algorithm for Canadian Traveller Problem (CTP):
@@ -12,6 +15,7 @@ Algorithms written in JavaScript and WebAssembly (C code compiled into WebAssemb
 2. Sepia,
 3. Nearest-neighbour interpolation
 - #### Animation
+<a name="result"></a>
 ## Sample Results
 
 ### HOP algorithm:
