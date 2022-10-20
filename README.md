@@ -20,10 +20,16 @@ Algorithms written in JavaScript and WebAssembly (C code compiled into WebAssemb
 ![JuliaSet](https://user-images.githubusercontent.com/44844566/197056701-1de3b1cb-de87-496e-8ddc-b44ce3938c9b.PNG)
 ![Mandelbrot1](https://user-images.githubusercontent.com/44844566/197056711-8eebb791-ce0b-44a4-983f-18cb14737c19.PNG)
 ### Image processing algorithms:
+
+The satellite photo available from the website earthexplorer.usgs.gov accessed 29.05.2020
 ![Otsuoriginal](https://user-images.githubusercontent.com/44844566/197056669-32093ee7-2a70-44e5-ac5d-1c61cca31fcc.PNG)
 ![Otsuafter](https://user-images.githubusercontent.com/44844566/197056660-65af4f18-bad6-437f-ad95-2006b918646c.PNG)
+
 ![Sepia](https://user-images.githubusercontent.com/44844566/197056672-700bdee5-3b4d-4e25-a31c-b91ed06c4f1c.PNG)
 ![wieksze](https://user-images.githubusercontent.com/44844566/197056675-847538d6-ef6f-47a2-b5c0-d7ba451c6ffa.PNG)
+
+The satellite photo available from the website earthexplorer.usgs.gov accessed 29.05.2020
+
 #### Benchmark results:
 JavaScript in relation to the WebAssembly:
 ![Benchmark](https://user-images.githubusercontent.com/44844566/197056692-0205dccb-5be0-4d9b-981b-048a3ef4ace9.PNG)
