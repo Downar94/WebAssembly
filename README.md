@@ -28,4 +28,5 @@ Algorithms written in JavaScript and WebAssembly (C code compiled into WebAssemb
 JavaScript in relation to the WebAssembly:
 ![Benchmark](https://user-images.githubusercontent.com/44844566/197056692-0205dccb-5be0-4d9b-981b-048a3ef4ace9.PNG)
 ### Animation:
-#### Benchmark results:
+#### Some Benchmark results:
+![benchmark1](https://user-images.githubusercontent.com/44844566/197059849-a02fd54a-35b2-4de5-9670-e9c0c63f5370.PNG)
